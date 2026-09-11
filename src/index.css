@@ -1,0 +1,11 @@
+:root {
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  background: #d8d8d3;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
