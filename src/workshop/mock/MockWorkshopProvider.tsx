@@ -14,12 +14,8 @@ import {
   workshopMockScenario,
 } from "./scenario";
 
-export interface WorkshopPlaybackControls {
-  pause: () => void;
-  resume: () => void;
-  step: () => void;
-  reset: () => void;
-}
+import type { WorkshopPlaybackControls } from "../playback";
+export type { WorkshopPlaybackControls } from "../playback";
 
 interface MockWorkshopContextValue {
   state: WorkshopViewState;

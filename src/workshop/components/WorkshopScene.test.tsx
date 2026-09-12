@@ -33,15 +33,15 @@ describe("WorkshopScene", () => {
           reset: vi.fn(),
         }}
         isPaused
-        scenarioIndex={2}
-        scenarioLength={8}
+        playbackStatus="mock 3/8"
       />,
     );
 
     expect(screen.getByLabelText("Lamp lit")).toBeTruthy();
     expect(screen.getByText(/gauge 7/)).toBeTruthy();
     expect(screen.getByText("I remember the earlier reading.")).toBeTruthy();
-    expect(screen.getByText(/intention: test a remembered relationship/)).toBeTruthy();
+    fireEvent.click(screen.getByRole("button", { name: "Inspect" }));
+    expect(screen.getByText("test a remembered relationship")).toBeTruthy();
   });
 
   it("exposes the mock operator controls", () => {
@@ -57,8 +57,7 @@ describe("WorkshopScene", () => {
           reset: vi.fn(),
         }}
         isPaused
-        scenarioIndex={2}
-        scenarioLength={8}
+        playbackStatus="mock 3/8"
       />,
     );
 

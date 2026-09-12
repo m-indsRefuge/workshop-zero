@@ -1,11 +1,38 @@
 :root {
+  font-family: "Segoe UI", system-ui, sans-serif;
+  color: #d9e1df;
+  background: #20282c;
+  color-scheme: dark;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
-  background: #d8d8d3;
+  -webkit-font-smoothing: antialiased;
+  --enclosure: #20282c;
+  --wall: #303c42;
+  --ceramic: #d9e1df;
+  --lamplight: #e8bd7c;
+  --terminal: #a9c1b8;
+  --muted: #9ba9af;
+  --utility-font: "Cascadia Mono", Consolas, ui-monospace, monospace;
 }
 
-body {
-  margin: 0;
-  min-width: 320px;
-  min-height: 100vh;
+* { box-sizing: border-box; }
+body { margin: 0; min-width: 320px; }
+button { font: inherit; }
+button, [tabindex] { -webkit-tap-highlight-color: transparent; }
+button { cursor: pointer; }
+button:focus-visible, [tabindex]:focus-visible {
+  outline: 2px solid var(--lamplight);
+  outline-offset: 4px;
+}
+::selection { color: #16262b; background: #d7dfd2; }
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }

@@ -14,8 +14,7 @@ function WorkshopApp() {
       state={state}
       controls={controls}
       isPaused={isPaused}
-      scenarioIndex={scenarioIndex}
-      scenarioLength={scenarioLength}
+      playbackStatus={`mock ${scenarioIndex + 1}/${scenarioLength}`}
     />
   );
 }
