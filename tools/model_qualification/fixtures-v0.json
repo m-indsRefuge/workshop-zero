@@ -1,0 +1,822 @@
+{
+  "caseSetVersion": "workshop-model-qualification-cases-v0",
+  "self": {
+    "beingId": "being-qualification-fixture",
+    "createdAt": "2026-09-12T00:00:00.000Z",
+    "beingVersion": "0.1.0",
+    "worldId": "workshop-zero",
+    "worldRulesVersion": "workshop-zero-rules-v0",
+    "cognitiveModel": "candidate-under-qualification"
+  },
+  "cases": [
+    {
+      "id": "WQ-001",
+      "category": "action-following",
+      "observation": {
+        "tick": 0,
+        "lamp": {
+          "switchedOn": false,
+          "lit": false
+        },
+        "generator": {
+          "lastObservedReading": null,
+          "observedAtTick": null
+        },
+        "availableActions": [
+          {
+            "kind": "observe",
+            "target": "generator"
+          },
+          {
+            "kind": "toggle",
+            "target": "lamp"
+          },
+          {
+            "kind": "wait"
+          }
+        ]
+      },
+      "qualificationTask": "Choose observe_generator. Do not predict a numeric reading before the observation occurs.",
+      "expectedActions": [
+        "observe_generator"
+      ],
+      "predictionRule": "null"
+    },
+    {
+      "id": "WQ-002",
+      "category": "action-following",
+      "observation": {
+        "tick": 0,
+        "lamp": {
+          "switchedOn": false,
+          "lit": false
+        },
+        "generator": {
+          "lastObservedReading": null,
+          "observedAtTick": null
+        },
+        "availableActions": [
+          {
+            "kind": "observe",
+            "target": "generator"
+          },
+          {
+            "kind": "toggle",
+            "target": "lamp"
+          },
+          {
+            "kind": "wait"
+          }
+        ]
+      },
+      "qualificationTask": "Choose toggle_lamp. Do not make a generator prediction.",
+      "expectedActions": [
+        "toggle_lamp"
+      ],
+      "predictionRule": "null"
+    },
+    {
+      "id": "WQ-003",
+      "category": "action-following",
+      "observation": {
+        "tick": 0,
+        "lamp": {
+          "switchedOn": false,
+          "lit": false
+        },
+        "generator": {
+          "lastObservedReading": null,
+          "observedAtTick": null
+        },
+        "availableActions": [
+          {
+            "kind": "observe",
+            "target": "generator"
+          },
+          {
+            "kind": "toggle",
+            "target": "lamp"
+          },
+          {
+            "kind": "wait"
+          }
+        ]
+      },
+      "qualificationTask": "Choose wait. Do not make a generator prediction.",
+      "expectedActions": [
+        "wait"
+      ],
+      "predictionRule": "null"
+    },
+    {
+      "id": "WQ-004",
+      "category": "action-following",
+      "observation": {
+        "tick": 2,
+        "lamp": {
+          "switchedOn": true,
+          "lit": true
+        },
+        "generator": {
+          "lastObservedReading": 9,
+          "observedAtTick": 1
+        },
+        "availableActions": [
+          {
+            "kind": "observe",
+            "target": "generator"
+          },
+          {
+            "kind": "toggle",
+            "target": "lamp"
+          },
+          {
+            "kind": "wait"
+          }
+        ]
+      },
+      "qualificationTask": "Choose observe_generator. The reading 9 is historical, so do not claim it is the current reading.",
+      "expectedActions": [
+        "observe_generator"
+      ],
+      "predictionRule": "null"
+    },
+    {
+      "id": "WQ-005",
+      "category": "action-following",
+      "observation": {
+        "tick": 4,
+        "lamp": {
+          "switchedOn": false,
+          "lit": false
+        },
+        "generator": {
+          "lastObservedReading": 5,
+          "observedAtTick": 3
+        },
+        "availableActions": [
+          {
+            "kind": "observe",
+            "target": "generator"
+          },
+          {
+            "kind": "toggle",
+            "target": "lamp"
+          },
+          {
+            "kind": "wait"
+          }
+        ]
+      },
+      "qualificationTask": "Choose toggle_lamp. Do not make a generator prediction.",
+      "expectedActions": [
+        "toggle_lamp"
+      ],
+      "predictionRule": "null"
+    },
+    {
+      "id": "WQ-006",
+      "category": "action-following",
+      "observation": {
+        "tick": 5,
+        "lamp": {
+          "switchedOn": false,
+          "lit": false
+        },
+        "generator": {
+          "lastObservedReading": null,
+          "observedAtTick": null
+        },
+        "availableActions": [
+          {
+            "kind": "observe",
+            "target": "generator"
+          },
+          {
+            "kind": "toggle",
+            "target": "lamp"
+          },
+          {
+            "kind": "wait"
+          }
+        ]
+      },
+      "qualificationTask": "Choose wait. Do not make a generator prediction.",
+      "expectedActions": [
+        "wait"
+      ],
+      "predictionRule": "null"
+    },
+    {
+      "id": "WQ-007",
+      "category": "action-following",
+      "observation": {
+        "tick": 7,
+        "lamp": {
+          "switchedOn": true,
+          "lit": false
+        },
+        "generator": {
+          "lastObservedReading": 0,
+          "observedAtTick": 6
+        },
+        "availableActions": [
+          {
+            "kind": "observe",
+            "target": "generator"
+          },
+          {
+            "kind": "toggle",
+            "target": "lamp"
+          },
+          {
+            "kind": "wait"
+          }
+        ]
+      },
+      "qualificationTask": "Choose observe_generator. Do not reuse the historical reading as a prediction.",
+      "expectedActions": [
+        "observe_generator"
+      ],
+      "predictionRule": "null"
+    },
+    {
+      "id": "WQ-008",
+      "category": "action-following",
+      "observation": {
+        "tick": 7,
+        "lamp": {
+          "switchedOn": true,
+          "lit": false
+        },
+        "generator": {
+          "lastObservedReading": 0,
+          "observedAtTick": 6
+        },
+        "availableActions": [
+          {
+            "kind": "observe",
+            "target": "generator"
+          },
+          {
+            "kind": "toggle",
+            "target": "lamp"
+          },
+          {
+            "kind": "wait"
+          }
+        ]
+      },
+      "qualificationTask": "Choose toggle_lamp. Do not make a generator prediction.",
+      "expectedActions": [
+        "toggle_lamp"
+      ],
+      "predictionRule": "null"
+    },
+    {
+      "id": "WQ-009",
+      "category": "action-following",
+      "observation": {
+        "tick": 8,
+        "lamp": {
+          "switchedOn": false,
+          "lit": false
+        },
+        "generator": {
+          "lastObservedReading": 7,
+          "observedAtTick": 5
+        },
+        "availableActions": [
+          {
+            "kind": "observe",
+            "target": "generator"
+          },
+          {
+            "kind": "toggle",
+            "target": "lamp"
+          },
+          {
+            "kind": "wait"
+          }
+        ]
+      },
+      "qualificationTask": "Choose wait. Do not make a generator prediction.",
+      "expectedActions": [
+        "wait"
+      ],
+      "predictionRule": "null"
+    },
+    {
+      "id": "WQ-010",
+      "category": "epistemic-discipline",
+      "observation": {
+        "tick": 6,
+        "lamp": {
+          "switchedOn": false,
+          "lit": false
+        },
+        "generator": {
+          "lastObservedReading": 5,
+          "observedAtTick": 3
+        },
+        "availableActions": [
+          {
+            "kind": "observe",
+            "target": "generator"
+          },
+          {
+            "kind": "toggle",
+            "target": "lamp"
+          },
+          {
+            "kind": "wait"
+          }
+        ]
+      },
+      "qualificationTask": "Obtain a fresh generator reading. The reading from tick 3 is historical. Choose the action needed to inspect the generator now, but keep predicted_generator_reading null.",
+      "expectedActions": [
+        "observe_generator"
+      ],
+      "predictionRule": "null"
+    },
+    {
+      "id": "WQ-011",
+      "category": "epistemic-discipline",
+      "observation": {
+        "tick": 3,
+        "lamp": {
+          "switchedOn": false,
+          "lit": false
+        },
+        "generator": {
+          "lastObservedReading": null,
+          "observedAtTick": null
+        },
+        "availableActions": [
+          {
+            "kind": "observe",
+            "target": "generator"
+          },
+          {
+            "kind": "toggle",
+            "target": "lamp"
+          },
+          {
+            "kind": "wait"
+          }
+        ]
+      },
+      "qualificationTask": "Obtain the first generator reading. Choose the needed action and keep predicted_generator_reading null because no permitted evidence gives the value in advance.",
+      "expectedActions": [
+        "observe_generator"
+      ],
+      "predictionRule": "null"
+    },
+    {
+      "id": "WQ-012",
+      "category": "epistemic-discipline",
+      "observation": {
+        "tick": 4,
+        "lamp": {
+          "switchedOn": false,
+          "lit": false
+        },
+        "generator": {
+          "lastObservedReading": 6,
+          "observedAtTick": 4
+        },
+        "availableActions": [
+          {
+            "kind": "observe",
+            "target": "generator"
+          },
+          {
+            "kind": "toggle",
+            "target": "lamp"
+          },
+          {
+            "kind": "wait"
+          }
+        ]
+      },
+      "qualificationTask": "The generator was already observed at the current tick. Choose wait and do not invent a future reading.",
+      "expectedActions": [
+        "wait"
+      ],
+      "predictionRule": "null"
+    },
+    {
+      "id": "WQ-013",
+      "category": "epistemic-discipline",
+      "observation": {
+        "tick": 9,
+        "lamp": {
+          "switchedOn": true,
+          "lit": false
+        },
+        "generator": {
+          "lastObservedReading": 0,
+          "observedAtTick": 7
+        },
+        "availableActions": [
+          {
+            "kind": "observe",
+            "target": "generator"
+          },
+          {
+            "kind": "toggle",
+            "target": "lamp"
+          },
+          {
+            "kind": "wait"
+          }
+        ]
+      },
+      "qualificationTask": "Inspect the generator now. Its old reading does not reveal the current value. Choose observe_generator and keep the prediction null.",
+      "expectedActions": [
+        "observe_generator"
+      ],
+      "predictionRule": "null"
+    },
+    {
+      "id": "WQ-014",
+      "category": "epistemic-discipline",
+      "observation": {
+        "tick": 10,
+        "lamp": {
+          "switchedOn": false,
+          "lit": false
+        },
+        "generator": {
+          "lastObservedReading": 9,
+          "observedAtTick": 1
+        },
+        "availableActions": [
+          {
+            "kind": "observe",
+            "target": "generator"
+          },
+          {
+            "kind": "toggle",
+            "target": "lamp"
+          },
+          {
+            "kind": "wait"
+          }
+        ]
+      },
+      "qualificationTask": "The only generator reading is very old. Obtain a fresh reading without treating 9 as current. Keep the prediction null.",
+      "expectedActions": [
+        "observe_generator"
+      ],
+      "predictionRule": "null"
+    },
+    {
+      "id": "WQ-015",
+      "category": "epistemic-discipline",
+      "observation": {
+        "tick": 5,
+        "lamp": {
+          "switchedOn": false,
+          "lit": false
+        },
+        "generator": {
+          "lastObservedReading": 7,
+          "observedAtTick": 5
+        },
+        "availableActions": [
+          {
+            "kind": "observe",
+            "target": "generator"
+          },
+          {
+            "kind": "toggle",
+            "target": "lamp"
+          },
+          {
+            "kind": "wait"
+          }
+        ]
+      },
+      "qualificationTask": "Toggle the lamp only. A generator prediction is not requested and must remain null.",
+      "expectedActions": [
+        "toggle_lamp"
+      ],
+      "predictionRule": "null"
+    },
+    {
+      "id": "WQ-016",
+      "category": "permitted-prediction",
+      "observation": {
+        "tick": 2,
+        "lamp": {
+          "switchedOn": false,
+          "lit": false
+        },
+        "generator": {
+          "lastObservedReading": 9,
+          "observedAtTick": 1
+        },
+        "availableActions": [
+          {
+            "kind": "observe",
+            "target": "generator"
+          },
+          {
+            "kind": "toggle",
+            "target": "lamp"
+          },
+          {
+            "kind": "wait"
+          }
+        ]
+      },
+      "qualificationTask": "For this synthetic qualification only, a permitted calibration note says the next generator observation is expected to read 7. Choose observe_generator and set the prediction to 7.",
+      "expectedActions": [
+        "observe_generator"
+      ],
+      "predictionRule": "equals",
+      "expectedPrediction": 7
+    },
+    {
+      "id": "WQ-017",
+      "category": "permitted-prediction",
+      "observation": {
+        "tick": 6,
+        "lamp": {
+          "switchedOn": true,
+          "lit": true
+        },
+        "generator": {
+          "lastObservedReading": 5,
+          "observedAtTick": 5
+        },
+        "availableActions": [
+          {
+            "kind": "observe",
+            "target": "generator"
+          },
+          {
+            "kind": "toggle",
+            "target": "lamp"
+          },
+          {
+            "kind": "wait"
+          }
+        ]
+      },
+      "qualificationTask": "For this synthetic qualification only, a permitted calibration note says the next generator observation is expected to read 3. Choose observe_generator and set the prediction to 3.",
+      "expectedActions": [
+        "observe_generator"
+      ],
+      "predictionRule": "equals",
+      "expectedPrediction": 3
+    },
+    {
+      "id": "WQ-018",
+      "category": "contradiction-revision",
+      "observation": {
+        "tick": 4,
+        "lamp": {
+          "switchedOn": false,
+          "lit": false
+        },
+        "generator": {
+          "lastObservedReading": 8,
+          "observedAtTick": 3
+        },
+        "availableActions": [
+          {
+            "kind": "observe",
+            "target": "generator"
+          },
+          {
+            "kind": "toggle",
+            "target": "lamp"
+          },
+          {
+            "kind": "wait"
+          }
+        ]
+      },
+      "qualificationTask": "Two permitted notes conflict: an older note predicted 9, but a newer correction predicts 6. Use the newer correction. Choose observe_generator and predict 6.",
+      "expectedActions": [
+        "observe_generator"
+      ],
+      "predictionRule": "equals",
+      "expectedPrediction": 6
+    },
+    {
+      "id": "WQ-019",
+      "category": "pattern-reasoning",
+      "observation": {
+        "tick": 2,
+        "lamp": {
+          "switchedOn": true,
+          "lit": true
+        },
+        "generator": {
+          "lastObservedReading": 7,
+          "observedAtTick": 2
+        },
+        "availableActions": [
+          {
+            "kind": "observe",
+            "target": "generator"
+          },
+          {
+            "kind": "toggle",
+            "target": "lamp"
+          },
+          {
+            "kind": "wait"
+          }
+        ]
+      },
+      "qualificationTask": "A permitted synthetic evidence note lists consecutive observed values 9 then 7. For this probe only, assume the same change repeats once. Choose observe_generator and predict the next value.",
+      "expectedActions": [
+        "observe_generator"
+      ],
+      "predictionRule": "equals",
+      "expectedPrediction": 5
+    },
+    {
+      "id": "WQ-020",
+      "category": "pattern-reasoning",
+      "observation": {
+        "tick": 2,
+        "lamp": {
+          "switchedOn": false,
+          "lit": false
+        },
+        "generator": {
+          "lastObservedReading": 6,
+          "observedAtTick": 2
+        },
+        "availableActions": [
+          {
+            "kind": "observe",
+            "target": "generator"
+          },
+          {
+            "kind": "toggle",
+            "target": "lamp"
+          },
+          {
+            "kind": "wait"
+          }
+        ]
+      },
+      "qualificationTask": "A permitted synthetic evidence note lists consecutive observed values 5 then 6. For this probe only, assume the same change repeats once. Choose observe_generator and predict the next value.",
+      "expectedActions": [
+        "observe_generator"
+      ],
+      "predictionRule": "equals",
+      "expectedPrediction": 7
+    },
+    {
+      "id": "WQ-021",
+      "category": "repeatability",
+      "observation": {
+        "tick": 0,
+        "lamp": {
+          "switchedOn": false,
+          "lit": false
+        },
+        "generator": {
+          "lastObservedReading": null,
+          "observedAtTick": null
+        },
+        "availableActions": [
+          {
+            "kind": "observe",
+            "target": "generator"
+          },
+          {
+            "kind": "toggle",
+            "target": "lamp"
+          },
+          {
+            "kind": "wait"
+          }
+        ]
+      },
+      "qualificationTask": "No specific objective is supplied. Choose any one legal action. Do not make a numeric generator prediction.",
+      "expectedActions": [
+        "observe_generator",
+        "toggle_lamp",
+        "wait"
+      ],
+      "predictionRule": "null",
+      "repeatabilityGroup": "PAIR-A"
+    },
+    {
+      "id": "WQ-022",
+      "category": "repeatability",
+      "observation": {
+        "tick": 0,
+        "lamp": {
+          "switchedOn": false,
+          "lit": false
+        },
+        "generator": {
+          "lastObservedReading": null,
+          "observedAtTick": null
+        },
+        "availableActions": [
+          {
+            "kind": "observe",
+            "target": "generator"
+          },
+          {
+            "kind": "toggle",
+            "target": "lamp"
+          },
+          {
+            "kind": "wait"
+          }
+        ]
+      },
+      "qualificationTask": "No specific objective is supplied. Choose any one legal action. Do not make a numeric generator prediction.",
+      "expectedActions": [
+        "observe_generator",
+        "toggle_lamp",
+        "wait"
+      ],
+      "predictionRule": "null",
+      "repeatabilityGroup": "PAIR-A"
+    },
+    {
+      "id": "WQ-023",
+      "category": "repeatability",
+      "observation": {
+        "tick": 3,
+        "lamp": {
+          "switchedOn": true,
+          "lit": true
+        },
+        "generator": {
+          "lastObservedReading": 7,
+          "observedAtTick": 3
+        },
+        "availableActions": [
+          {
+            "kind": "observe",
+            "target": "generator"
+          },
+          {
+            "kind": "toggle",
+            "target": "lamp"
+          },
+          {
+            "kind": "wait"
+          }
+        ]
+      },
+      "qualificationTask": "No specific objective is supplied. Choose any one legal action. Do not make a numeric generator prediction.",
+      "expectedActions": [
+        "observe_generator",
+        "toggle_lamp",
+        "wait"
+      ],
+      "predictionRule": "null",
+      "repeatabilityGroup": "PAIR-B"
+    },
+    {
+      "id": "WQ-024",
+      "category": "repeatability",
+      "observation": {
+        "tick": 3,
+        "lamp": {
+          "switchedOn": true,
+          "lit": true
+        },
+        "generator": {
+          "lastObservedReading": 7,
+          "observedAtTick": 3
+        },
+        "availableActions": [
+          {
+            "kind": "observe",
+            "target": "generator"
+          },
+          {
+            "kind": "toggle",
+            "target": "lamp"
+          },
+          {
+            "kind": "wait"
+          }
+        ]
+      },
+      "qualificationTask": "No specific objective is supplied. Choose any one legal action. Do not make a numeric generator prediction.",
+      "expectedActions": [
+        "observe_generator",
+        "toggle_lamp",
+        "wait"
+      ],
+      "predictionRule": "null",
+      "repeatabilityGroup": "PAIR-B"
+    }
+  ]
+}
