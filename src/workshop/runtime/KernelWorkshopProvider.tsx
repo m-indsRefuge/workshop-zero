@@ -5,6 +5,7 @@ import {
   useContext,
   useEffect,
   useMemo,
+  useRef,
   useState,
 } from "react";
 import type { WorldAction, WorldState } from "../kernel/types";
@@ -12,6 +13,13 @@ import {
   INITIAL_WORLD_STATE,
   reduceWorld,
 } from "../kernel/world";
+import type {
+  PersistedWorkshop,
+  PersistenceSnapshot,
+  WorkshopIdentity,
+  WorkshopPersistence,
+} from "../persistence/types";
+import { tauriWorkshopPersistence } from "../persistence/tauriPersistence";
 import type { WorkshopPlaybackControls } from "../playback";
 import type {
   WorkshopAttentionTarget,
@@ -38,6 +46,13 @@ interface KernelWorkshopContextValue {
   isPaused: boolean;
   probeIndex: number;
   probeLength: number;
+  identity: WorkshopIdentity | null;
+  isReady: boolean;
+  persistenceError: string | null;
+}
+
+interface KernelWorkshopProviderProps extends PropsWithChildren {
+  persistence?: WorkshopPersistence;
 }
 
 const KernelWorkshopContext =
@@ -68,7 +83,12 @@ function initialRuntime(): KernelRuntimeState {
 function phaseForAction(
   action: WorldAction | null,
   isPaused: boolean,
+  persistenceError: string | null,
 ): WorkshopPhase {
+  if (persistenceError !== null) {
+    return "error";
+  }
+
   if (isPaused) {
     return "paused";
   }
@@ -97,11 +117,16 @@ function attentionForAction(
 function projectView(
   runtime: KernelRuntimeState,
   isPaused: boolean,
+  persistenceError: string | null,
 ): WorkshopViewState {
   const lampOn = runtime.world.lampSwitch === "on";
 
   return {
-    phase: phaseForAction(runtime.lastAction, isPaused),
+    phase: phaseForAction(
+      runtime.lastAction,
+      isPaused,
+      persistenceError,
+    ),
     lamp: {
       switchedOn: lampOn,
       lit: lampOn && runtime.world.charge > 0,
@@ -111,7 +136,8 @@ function projectView(
       readingTick: runtime.generator.readingTick,
     },
     being: {
-      activity: null,
+      activity:
+        persistenceError === null ? null : "persistence unavailable",
       intention: null,
       uncertainty: null,
       attentionTarget: attentionForAction(runtime.lastAction),
@@ -149,28 +175,168 @@ function advanceRuntime(current: KernelRuntimeState): KernelRuntimeState {
   };
 }
 
+function toPersistenceSnapshot(
+  runtime: KernelRuntimeState,
+): PersistenceSnapshot {
+  return {
+    world: {
+      tick: runtime.world.tick,
+      charge: runtime.world.charge,
+      lampSwitch: runtime.world.lampSwitch,
+    },
+    generator: {
+      visibleReading: runtime.generator.visibleReading,
+      readingTick: runtime.generator.readingTick,
+    },
+    probeIndex: runtime.probeIndex,
+  };
+}
+
+function fromPersistedWorkshop(
+  persisted: PersistedWorkshop,
+): KernelRuntimeState {
+  const { snapshot } = persisted;
+
+  if (
+    snapshot.probeIndex < 0 ||
+    snapshot.probeIndex > DEVELOPMENT_PROBE.length
+  ) {
+    throw new Error("persisted probe index is outside V0 bounds");
+  }
+
+  if (snapshot.world.tick < 0) {
+    throw new Error("persisted world tick is invalid");
+  }
+
+  if (snapshot.world.charge < 0 || snapshot.world.charge > 12) {
+    throw new Error("persisted world charge is invalid");
+  }
+
+  return {
+    world: {
+      tick: snapshot.world.tick,
+      charge: snapshot.world.charge,
+      lampSwitch: snapshot.world.lampSwitch,
+    },
+    lastAction: null,
+    generator: {
+      visibleReading: snapshot.generator.visibleReading,
+      readingTick: snapshot.generator.readingTick,
+    },
+    probeIndex: snapshot.probeIndex,
+  };
+}
+
+function persistenceMessage(error: unknown): string {
+  return error instanceof Error ? error.message : String(error);
+}
+
 export function KernelWorkshopProvider({
   children,
-}: PropsWithChildren) {
-  const [runtime, setRuntime] = useState<KernelRuntimeState>(initialRuntime);
+  persistence = tauriWorkshopPersistence,
+}: KernelWorkshopProviderProps) {
+  const [runtime, setRuntime] =
+    useState<KernelRuntimeState>(initialRuntime);
+  const [identity, setIdentity] =
+    useState<WorkshopIdentity | null>(null);
   const [isPaused, setIsPaused] = useState(true);
+  const [isReady, setIsReady] = useState(false);
+  const [persistenceError, setPersistenceError] =
+    useState<string | null>(null);
+
+  const runtimeRef = useRef(runtime);
+  const readyRef = useRef(false);
+  const operationQueueRef = useRef<Promise<void>>(Promise.resolve());
+
+  useEffect(() => {
+    let cancelled = false;
+
+    persistence
+      .loadOrInitialize()
+      .then((persisted) => {
+        if (cancelled) {
+          return;
+        }
+
+        const restored = fromPersistedWorkshop(persisted);
+        runtimeRef.current = restored;
+        readyRef.current = true;
+        setRuntime(restored);
+        setIdentity(persisted.identity);
+        setIsPaused(true);
+        setPersistenceError(null);
+        setIsReady(true);
+      })
+      .catch((error: unknown) => {
+        if (cancelled) {
+          return;
+        }
+
+        readyRef.current = false;
+        setIsPaused(true);
+        setPersistenceError(persistenceMessage(error));
+        setIsReady(false);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [persistence]);
+
+  const enqueueRuntimeChange = useCallback(
+    (
+      transform: (
+        current: KernelRuntimeState,
+      ) => KernelRuntimeState,
+    ) => {
+      operationQueueRef.current = operationQueueRef.current
+        .then(async () => {
+          if (!readyRef.current) {
+            return;
+          }
+
+          const current = runtimeRef.current;
+          const next = transform(current);
+
+          if (next === current) {
+            return;
+          }
+
+          await persistence.saveSnapshot(
+            toPersistenceSnapshot(next),
+          );
+
+          runtimeRef.current = next;
+          setRuntime(next);
+        })
+        .catch((error: unknown) => {
+          readyRef.current = false;
+          setIsPaused(true);
+          setIsReady(false);
+          setPersistenceError(persistenceMessage(error));
+        });
+    },
+    [persistence],
+  );
 
   const pause = useCallback(() => {
     setIsPaused(true);
   }, []);
 
   const resume = useCallback(() => {
-    setIsPaused(false);
+    if (readyRef.current) {
+      setIsPaused(false);
+    }
   }, []);
 
   const step = useCallback(() => {
-    setRuntime((current) => advanceRuntime(current));
-  }, []);
+    enqueueRuntimeChange(advanceRuntime);
+  }, [enqueueRuntimeChange]);
 
   const reset = useCallback(() => {
-    setRuntime(initialRuntime());
+    enqueueRuntimeChange(() => initialRuntime());
     setIsPaused(true);
-  }, []);
+  }, [enqueueRuntimeChange]);
 
   useEffect(() => {
     if (
@@ -182,22 +348,31 @@ export function KernelWorkshopProvider({
   }, [isPaused, runtime.probeIndex]);
 
   useEffect(() => {
-    if (isPaused || runtime.probeIndex >= DEVELOPMENT_PROBE.length) {
+    if (
+      !isReady ||
+      isPaused ||
+      runtime.probeIndex >= DEVELOPMENT_PROBE.length
+    ) {
       return;
     }
 
     const handle = window.setInterval(() => {
-      setRuntime((current) => advanceRuntime(current));
+      enqueueRuntimeChange(advanceRuntime);
     }, PROBE_INTERVAL_MS);
 
     return () => {
       window.clearInterval(handle);
     };
-  }, [isPaused, runtime.probeIndex]);
+  }, [
+    enqueueRuntimeChange,
+    isPaused,
+    isReady,
+    runtime.probeIndex,
+  ]);
 
   const state = useMemo(
-    () => projectView(runtime, isPaused),
-    [isPaused, runtime],
+    () => projectView(runtime, isPaused, persistenceError),
+    [isPaused, persistenceError, runtime],
   );
 
   const controls = useMemo<WorkshopPlaybackControls>(
@@ -217,8 +392,19 @@ export function KernelWorkshopProvider({
       isPaused,
       probeIndex: runtime.probeIndex,
       probeLength: DEVELOPMENT_PROBE.length,
+      identity,
+      isReady,
+      persistenceError,
     }),
-    [controls, isPaused, runtime.probeIndex, state],
+    [
+      controls,
+      identity,
+      isPaused,
+      isReady,
+      persistenceError,
+      runtime.probeIndex,
+      state,
+    ],
   );
 
   return (
