@@ -1,29 +1,34 @@
 import "./App.css";
 import { WorkshopScene } from "./workshop/components/WorkshopScene";
 import {
-  MockWorkshopProvider,
-  useMockWorkshop,
-} from "./workshop/mock/MockWorkshopProvider";
+  KernelWorkshopProvider,
+  useKernelWorkshop,
+} from "./workshop/runtime/KernelWorkshopProvider";
 
 function WorkshopApp() {
-  const { state, controls, isPaused, scenarioIndex, scenarioLength } =
-    useMockWorkshop();
+  const {
+    state,
+    controls,
+    isPaused,
+    probeIndex,
+    probeLength,
+  } = useKernelWorkshop();
 
   return (
     <WorkshopScene
       state={state}
       controls={controls}
       isPaused={isPaused}
-      playbackStatus={`mock ${scenarioIndex + 1}/${scenarioLength}`}
+      playbackStatus={`kernel ${probeIndex}/${probeLength}`}
     />
   );
 }
 
 function App() {
   return (
-    <MockWorkshopProvider>
+    <KernelWorkshopProvider>
       <WorkshopApp />
-    </MockWorkshopProvider>
+    </KernelWorkshopProvider>
   );
 }
 
