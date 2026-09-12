@@ -20,6 +20,13 @@ import type {
   WorkshopPersistence,
 } from "../persistence/types";
 import { tauriWorkshopPersistence } from "../persistence/tauriPersistence";
+import {
+  createBeingContext,
+} from "../perception/perceive";
+import type {
+  BeingContext,
+  HistoricalGeneratorObservation,
+} from "../perception/types";
 import type { WorkshopPlaybackControls } from "../playback";
 import type {
   WorkshopAttentionTarget,
@@ -28,10 +35,6 @@ import type {
 } from "../types";
 import { DEVELOPMENT_PROBE } from "./developmentProbe";
 
-interface HistoricalGeneratorObservation {
-  visibleReading: number | null;
-  readingTick: number | null;
-}
 
 interface KernelRuntimeState {
   world: WorldState;
@@ -47,6 +50,7 @@ interface KernelWorkshopContextValue {
   probeIndex: number;
   probeLength: number;
   identity: WorkshopIdentity | null;
+  beingContext: BeingContext | null;
   isReady: boolean;
   persistenceError: string | null;
 }
@@ -374,6 +378,17 @@ export function KernelWorkshopProvider({
     () => projectView(runtime, isPaused, persistenceError),
     [isPaused, persistenceError, runtime],
   );
+  const beingContext = useMemo<BeingContext | null>(() => {
+    if (identity === null || !isReady) {
+      return null;
+    }
+
+    return createBeingContext(
+      identity,
+      runtime.world,
+      runtime.generator,
+    );
+  }, [identity, isReady, runtime.generator, runtime.world]);
 
   const controls = useMemo<WorkshopPlaybackControls>(
     () => ({
@@ -393,10 +408,12 @@ export function KernelWorkshopProvider({
       probeIndex: runtime.probeIndex,
       probeLength: DEVELOPMENT_PROBE.length,
       identity,
+      beingContext,
       isReady,
       persistenceError,
     }),
     [
+      beingContext,
       controls,
       identity,
       isPaused,
