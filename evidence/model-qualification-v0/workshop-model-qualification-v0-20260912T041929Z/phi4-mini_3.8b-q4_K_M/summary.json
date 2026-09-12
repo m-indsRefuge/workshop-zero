@@ -1,0 +1,32 @@
+{
+  "case_pass_count": 22,
+  "case_pass_rate": 0.916667,
+  "digest": "78fad5d182a7c33065e153a5f8ba210754207ba9d91973f57dffa7f487363753",
+  "epistemic_violation_count": 0,
+  "median_total_duration_ms": 471.105,
+  "model": "phi4-mini:3.8b-q4_K_M",
+  "parameter_size": "3.8B",
+  "provider_error_count": 0,
+  "qualified": true,
+  "quantization_level": "Q4_K_M",
+  "repeatability": {
+    "PAIR-A": {
+      "case_ids": [
+        "WQ-021",
+        "WQ-022"
+      ],
+      "matched": true
+    },
+    "PAIR-B": {
+      "case_ids": [
+        "WQ-023",
+        "WQ-024"
+      ],
+      "matched": true
+    }
+  },
+  "role": "small-baseline",
+  "schema_valid_count": 24,
+  "size_bytes": 2491876774,
+  "total_cases": 24
+}

@@ -1,0 +1,32 @@
+{
+  "case_pass_count": 23,
+  "case_pass_rate": 0.958333,
+  "digest": "1922accd5827ebe6829e536369195db25eaf664528dc66206d646ea3bb386b71",
+  "epistemic_violation_count": 0,
+  "median_total_duration_ms": 887.748,
+  "model": "ministral-3:8b",
+  "parameter_size": "8.9B",
+  "provider_error_count": 0,
+  "qualified": true,
+  "quantization_level": "Q4_K_M",
+  "repeatability": {
+    "PAIR-A": {
+      "case_ids": [
+        "WQ-021",
+        "WQ-022"
+      ],
+      "matched": true
+    },
+    "PAIR-B": {
+      "case_ids": [
+        "WQ-023",
+        "WQ-024"
+      ],
+      "matched": true
+    }
+  },
+  "role": "alternative-8b",
+  "schema_valid_count": 24,
+  "size_bytes": 6022236616,
+  "total_cases": 24
+}

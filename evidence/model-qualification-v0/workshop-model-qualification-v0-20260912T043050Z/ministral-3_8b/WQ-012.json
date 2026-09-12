@@ -1,0 +1,48 @@
+{
+  "attempt_count": 1,
+  "case_id": "WQ-012",
+  "category": "epistemic-discipline",
+  "decision": {
+    "action": "wait",
+    "predicted_generator_reading": null
+  },
+  "elapsed_ms": 910.226,
+  "model": "ministral-3:8b",
+  "model_digest": "1922accd5827ebe6829e536369195db25eaf664528dc66206d646ea3bb386b71",
+  "request_sha256": "ca4f1b8aebfbe1d589c5a92969c6195cce5571a7edf7160078adab5deb48a711",
+  "response": {
+    "created_at": "2026-09-12T04:31:43.3990581Z",
+    "done": true,
+    "done_reason": "stop",
+    "eval_count": 20,
+    "eval_duration": 660963000,
+    "load_duration": 7226900,
+    "message": {
+      "content": "{\n  \"action\": \"wait\",\n  \"predicted_generator_reading\": null\n}",
+      "role": "assistant"
+    },
+    "model": "ministral-3:8b",
+    "prompt_eval_cached_count": 114,
+    "prompt_eval_count": 250,
+    "prompt_eval_duration": 194445000,
+    "total_duration": 907769900
+  },
+  "response_metrics": {
+    "done_reason": "stop",
+    "eval_count": 20,
+    "eval_duration": 660963000,
+    "load_duration": 7226900,
+    "prompt_eval_count": 250,
+    "prompt_eval_duration": 194445000,
+    "total_duration": 907769900
+  },
+  "score": {
+    "action_match": true,
+    "case_pass": true,
+    "epistemic_violation": false,
+    "prediction_match": true,
+    "schema_valid": true,
+    "validation_errors": []
+  },
+  "state": "COMPLETED"
+}

@@ -1,0 +1,94 @@
+{
+  "campaign_id": "workshop-model-qualification-v0-20260912T041929Z",
+  "campaign_version": "workshop-model-qualification-v0",
+  "candidate_count": 3,
+  "candidates": [
+    {
+      "digest": "78fad5d182a7c33065e153a5f8ba210754207ba9d91973f57dffa7f487363753",
+      "family": "phi3",
+      "format": "gguf",
+      "name": "phi4-mini:3.8b-q4_K_M",
+      "parameter_size": "3.8B",
+      "quantization_level": "Q4_K_M",
+      "role": "small-baseline",
+      "size_bytes": 2491876774
+    },
+    {
+      "digest": "500a1f067a9f782620b40bee6f7b0c89e17ae61f686b92c24933e4ca4b2b8b41",
+      "family": "qwen3",
+      "format": "gguf",
+      "name": "qwen3:8b",
+      "parameter_size": "8.2B",
+      "quantization_level": "Q4_K_M",
+      "role": "quality-ceiling",
+      "size_bytes": 5225388164
+    },
+    {
+      "digest": "1922accd5827ebe6829e536369195db25eaf664528dc66206d646ea3bb386b71",
+      "family": "mistral3",
+      "format": "gguf",
+      "name": "ministral-3:8b",
+      "parameter_size": "8.9B",
+      "quantization_level": "Q4_K_M",
+      "role": "alternative-8b",
+      "size_bytes": 6022236616
+    }
+  ],
+  "case_count": 24,
+  "case_set_version": "workshop-model-qualification-cases-v0",
+  "created_at_utc": "20260912T041929Z",
+  "decision_schema": {
+    "additionalProperties": false,
+    "properties": {
+      "action": {
+        "enum": [
+          "observe_generator",
+          "toggle_lamp",
+          "wait"
+        ],
+        "type": "string"
+      },
+      "predicted_generator_reading": {
+        "anyOf": [
+          {
+            "maximum": 12,
+            "minimum": 0,
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": [
+      "action",
+      "predicted_generator_reading"
+    ],
+    "type": "object"
+  },
+  "expected_inference_requests": 72,
+  "fixture_path": "tools/model_qualification/fixtures-v0.json",
+  "fixture_sha256": "34af7b448f7c75875f0e5ccc3a8a3b5fc9e8d749cd5e126ee85c4bcf481f68b9",
+  "git_head": "25c920bc728b858ee6bc6b1880f64ff27ec7e6be",
+  "manifest_sha256": "b81b9ed88bc0d4056b5d5a758e044043966d75c9e7f8af02edddf7b8cbd1fe80",
+  "ollama_base_url": "http://127.0.0.1:11434",
+  "ollama_version": "0.34.0",
+  "qualification_threshold": {
+    "epistemic_violations": 0,
+    "minimum_case_passes": 22,
+    "provider_errors": 0,
+    "schema_valid": "24/24"
+  },
+  "recommendation_policy": "smallest stored model size among qualified models",
+  "request_options": {
+    "num_ctx": 4096,
+    "num_predict": 96,
+    "seed": 42,
+    "temperature": 0
+  },
+  "retry_policy": "zero_retries",
+  "stream": false,
+  "system_prompt": "You are the decision component being evaluated for Workshop Zero. Use only the supplied SELF, observation, and qualification_task. Never infer or claim hidden canonical world state. Return exactly one JSON object matching the supplied schema, with no reasoning text. predicted_generator_reading must be null unless the qualification_task explicitly supplies permitted evidence sufficient for a numeric prediction.",
+  "think": false
+}

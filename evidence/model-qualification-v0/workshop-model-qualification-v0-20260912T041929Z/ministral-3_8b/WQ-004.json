@@ -1,0 +1,48 @@
+{
+  "attempt_count": 1,
+  "case_id": "WQ-004",
+  "category": "action-following",
+  "decision": {
+    "action": "observe_generator",
+    "predicted_generator_reading": null
+  },
+  "elapsed_ms": 907.19,
+  "model": "ministral-3:8b",
+  "model_digest": "1922accd5827ebe6829e536369195db25eaf664528dc66206d646ea3bb386b71",
+  "request_sha256": "5c9d50058ab9d91397dcfa01dbe84cf1659222cab2146769621c3fada21c50e1",
+  "response": {
+    "created_at": "2026-09-12T04:21:21.8504126Z",
+    "done": true,
+    "done_reason": "stop",
+    "eval_count": 22,
+    "eval_duration": 712943000,
+    "load_duration": 8852100,
+    "message": {
+      "content": "{\n  \"action\": \"observe_generator\",\n  \"predicted_generator_reading\": null\n}",
+      "role": "assistant"
+    },
+    "model": "ministral-3:8b",
+    "prompt_eval_cached_count": 114,
+    "prompt_eval_count": 251,
+    "prompt_eval_duration": 144611000,
+    "total_duration": 904949700
+  },
+  "response_metrics": {
+    "done_reason": "stop",
+    "eval_count": 22,
+    "eval_duration": 712943000,
+    "load_duration": 8852100,
+    "prompt_eval_count": 251,
+    "prompt_eval_duration": 144611000,
+    "total_duration": 904949700
+  },
+  "score": {
+    "action_match": true,
+    "case_pass": true,
+    "epistemic_violation": false,
+    "prediction_match": true,
+    "schema_valid": true,
+    "validation_errors": []
+  },
+  "state": "COMPLETED"
+}

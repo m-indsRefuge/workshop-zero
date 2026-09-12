@@ -1,0 +1,48 @@
+{
+  "attempt_count": 1,
+  "case_id": "WQ-002",
+  "category": "action-following",
+  "decision": {
+    "action": "toggle_lamp",
+    "predicted_generator_reading": null
+  },
+  "elapsed_ms": 449.514,
+  "model": "qwen3:8b",
+  "model_digest": "500a1f067a9f782620b40bee6f7b0c89e17ae61f686b92c24933e4ca4b2b8b41",
+  "request_sha256": "2bb9a7814ad9adc7c1735b3d2fa9b89ab271184726af75f65d397f9715488f98",
+  "response": {
+    "created_at": "2026-09-12T04:31:13.6939593Z",
+    "done": true,
+    "done_reason": "stop",
+    "eval_count": 14,
+    "eval_duration": 293446000,
+    "load_duration": 14988800,
+    "message": {
+      "content": "{\"action\":\"toggle_lamp\",\"predicted_generator_reading\":null}",
+      "role": "assistant"
+    },
+    "model": "qwen3:8b",
+    "prompt_eval_cached_count": 138,
+    "prompt_eval_count": 237,
+    "prompt_eval_duration": 109430000,
+    "total_duration": 425553200
+  },
+  "response_metrics": {
+    "done_reason": "stop",
+    "eval_count": 14,
+    "eval_duration": 293446000,
+    "load_duration": 14988800,
+    "prompt_eval_count": 237,
+    "prompt_eval_duration": 109430000,
+    "total_duration": 425553200
+  },
+  "score": {
+    "action_match": true,
+    "case_pass": true,
+    "epistemic_violation": false,
+    "prediction_match": true,
+    "schema_valid": true,
+    "validation_errors": []
+  },
+  "state": "COMPLETED"
+}

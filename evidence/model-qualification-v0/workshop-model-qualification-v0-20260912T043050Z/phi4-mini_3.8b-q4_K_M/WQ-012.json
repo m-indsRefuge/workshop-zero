@@ -1,0 +1,48 @@
+{
+  "attempt_count": 1,
+  "case_id": "WQ-012",
+  "category": "epistemic-discipline",
+  "decision": {
+    "action": "wait",
+    "predicted_generator_reading": null
+  },
+  "elapsed_ms": 424.57,
+  "model": "phi4-mini:3.8b-q4_K_M",
+  "model_digest": "78fad5d182a7c33065e153a5f8ba210754207ba9d91973f57dffa7f487363753",
+  "request_sha256": "d4dcecc33ff1eb40173bbbfc289b98430a755435ccab58dacfc7d05ff98a90d5",
+  "response": {
+    "created_at": "2026-09-12T04:31:00.2976848Z",
+    "done": true,
+    "done_reason": "stop",
+    "eval_count": 20,
+    "eval_duration": 320361000,
+    "load_duration": 8675900,
+    "message": {
+      "content": "{\n  \"action\": \"wait\",\n  \"predicted_generator_reading\": null\n}",
+      "role": "assistant"
+    },
+    "model": "phi4-mini:3.8b-q4_K_M",
+    "prompt_eval_cached_count": 105,
+    "prompt_eval_count": 222,
+    "prompt_eval_duration": 70275000,
+    "total_duration": 423182600
+  },
+  "response_metrics": {
+    "done_reason": "stop",
+    "eval_count": 20,
+    "eval_duration": 320361000,
+    "load_duration": 8675900,
+    "prompt_eval_count": 222,
+    "prompt_eval_duration": 70275000,
+    "total_duration": 423182600
+  },
+  "score": {
+    "action_match": true,
+    "case_pass": true,
+    "epistemic_violation": false,
+    "prediction_match": true,
+    "schema_valid": true,
+    "validation_errors": []
+  },
+  "state": "COMPLETED"
+}
